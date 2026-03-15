@@ -1141,8 +1141,9 @@
       </div>
     </footer>
 
-    <!-- VK Community Messages widget -->
+    <!-- VK Community Messages widget (temporarily disabled)
     <div id="vk_community_messages"></div>
+    -->
 
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript">
@@ -1439,25 +1440,6 @@
     </script>
 
     <script>
-      (function () {
-        // VK community messages widget init (community ID 225365151)
-        function initVkWidget() {
-          if (typeof VK === "undefined" || !VK.Widgets) {
-            setTimeout(initVkWidget, 200);
-            return;
-          }
-          setTimeout(function () {
-            try {
-              VK.Widgets.CommunityMessages("vk_community_messages", 225365151);
-            } catch (e) {
-              console.warn("VK widget init:", e);
-            }
-          }, 1500);
-        }
-        if (document.readyState === "complete") initVkWidget();
-        else window.addEventListener("load", initVkWidget);
-      })();
-
       (function () {
         const year = document.getElementById("year");
         if (year) year.textContent = new Date().getFullYear();
