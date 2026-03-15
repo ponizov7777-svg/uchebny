@@ -26,6 +26,9 @@
 
     <meta name="theme-color" content="#0a0a0b" />
 
+    <!-- VK Open API для виджета «Сообщения сообщества» -->
+    <script src="https://vk.com/js/api/openapi.js?169" type="text/javascript"></script>
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
       tailwind.config = {
@@ -274,7 +277,7 @@
             id="top-telegram"
             class="btn-hover-scale btn-neon hidden md:inline-flex items-center justify-center rounded-xl px-3 py-2 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-amber-400/50"
             href="#cta"
-            >Начать</a
+            >Бабло</a
           >
           <button
             id="hamburger-btn"
@@ -845,64 +848,66 @@
           </p>
 
           <div class="mt-8 grid gap-6 md:grid-cols-3 md:grid-flow-row">
-            <!-- Базовый -->
+            <!-- Базовый старт (из geo-lending) -->
             <article class="tariff-basic card-hover-lift flex flex-col rounded-3xl border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-soft/20">
-              <h3 class="text-lg font-semibold text-[var(--text)]">Базовый</h3>
-              <p class="mt-1 text-sm text-[var(--text-muted)]">для спокойного старта</p>
-              <p class="mt-4 text-3xl font-semibold text-[var(--text)]"><span class="js-counter" data-end="15000" data-suffix=" ₽" data-duration="1200">0</span></p>
+              <h3 class="text-lg font-semibold text-[var(--text)]">Базовый старт</h3>
+              <p class="mt-1 text-sm text-[var(--text-muted)]">размещение компании на картах / оптимизация</p>
+              <p class="mt-4 text-3xl font-semibold text-[var(--text)]">
+                <span class="js-counter" data-end="20000" data-suffix=" ₽" data-duration="1200">0</span>
+              </p>
               <ul class="mt-4 flex-1 space-y-2 text-sm text-slate-300">
-                <li>✓ аудит карточки и спроса</li>
-                <li>✓ рекомендации по упаковке и отзывам</li>
-                <li>✓ чек‑лист по доработкам</li>
+                <li>✓ Размещение или проверка карточки в Яндекс Картах</li>
+                <li>✓ Базовая упаковка профиля и структура услуг</li>
+                <li>✓ Видимость в картах и локальном поиске</li>
               </ul>
               <a
                 class="btn-hover-scale btn-outline-neon mt-6 inline-flex h-12 w-full flex-shrink-0 items-center justify-center rounded-2xl px-5 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-amber-400/30"
                 href="#cta"
-                >Выбрать</a
+                >Заказать размещение на картах</a
               >
             </article>
 
-            <!-- Про (популярный) -->
+            <!-- Настройка карт под ключ (популярный) -->
             <article
               class="tariff-pro card-hover-lift relative flex flex-col rounded-3xl border-2 border-amber-400/60 bg-gradient-to-br from-amber-400/45 to-orange-500/50 p-8 shadow-soft md:scale-105 md:origin-center"
             >
               <div class="mb-3 flex items-center justify-between gap-2">
-                <h3 class="text-lg font-semibold text-[var(--text)]">Про</h3>
+                <h3 class="text-lg font-semibold text-[var(--text)]">Настройка карт под ключ</h3>
                 <span
                   class="inline-flex items-center rounded-full bg-amber-500/25 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-amber-200"
-                  >Популярный</span
+                  >Популярно</span
                 >
               </div>
-              <p class="text-sm text-[var(--text-muted)]">оптимальный баланс глубины и цены</p>
-              <p class="mt-4 text-4xl font-semibold text-[var(--text)]"><span class="js-counter" data-end="25000" data-suffix=" ₽" data-duration="1200">0</span></p>
+              <p class="text-sm text-[var(--text-muted)]">оптимальный вариант настройки карт</p>
+              <p class="mt-4 text-4xl font-semibold text-[var(--text)]">
+                <span class="js-counter" data-end="33000" data-suffix=" ₽" data-duration="1200">0</span>
+              </p>
               <ul class="mt-4 flex-1 space-y-2 text-sm text-slate-300">
-                <li>✓ глубокий аудит и стратегия на 4–6 недель</li>
-                <li>✓ проработка рекламы и тестовых гипотез</li>
-                <li>✓ базовая юнит‑экономика и точки контроля</li>
-                <li>✓ приоритизированный план действий</li>
+                <li>✓ Визуальная упаковка и SEO‑оптимизация карточки</li>
+                <li>✓ Анализ конкурентов и рекламная подписка Яндекс Бизнес</li>
+                <li>✓ Проверка воронки и ключевых точек роста</li>
               </ul>
               <a
                 class="btn-hover-scale mt-6 inline-flex h-12 w-full flex-shrink-0 items-center justify-center rounded-2xl bg-amber-500/90 px-5 text-sm font-semibold text-white shadow-soft transition hover:bg-amber-500 focus:outline-none focus:ring-2 focus:ring-amber-400/50"
                 href="#cta"
-                >Выбрать</a
+                >Заказать настройку карт под ключ</a
               >
             </article>
 
-            <!-- Бизнес -->
+            <!-- Ваш бизнес — мой бизнес -->
             <article class="tariff-business card-hover-lift flex flex-col rounded-3xl border border-[var(--border)] bg-[var(--bg-card)] p-6 shadow-soft/20">
-              <h3 class="text-lg font-semibold text-[var(--text)]">Бизнес</h3>
-              <p class="mt-1 text-sm text-[var(--text-muted)]">для системной работы</p>
+              <h3 class="text-lg font-semibold text-[var(--text)]">Ваш бизнес — мой бизнес</h3>
+              <p class="mt-1 text-sm text-[var(--text-muted)]">запуск и 1 месяц сопровождения</p>
               <p class="mt-4 text-3xl font-semibold text-[var(--text)]"><span class="js-counter" data-end="45000" data-suffix=" ₽" data-duration="1200">0</span></p>
               <ul class="mt-4 flex-1 space-y-2 text-sm text-slate-300">
-                <li>✓ всё из тарифа «Про»</li>
-                <li>✓ сопровождение внедрения на 2–4 недели</li>
-                <li>✓ несколько итераций тестов и корректировок</li>
-                <li>✓ совместный разбор аналитики и решений</li>
+                <li>✓ Запуск и 1 месяц сопровождения карточки</li>
+                <li>✓ Работа с отзывами и репутацией</li>
+                <li>✓ План развития на 1–3 месяца и максимальное включение в результат</li>
               </ul>
               <a
                 class="btn-hover-scale btn-outline-neon mt-6 inline-flex h-12 w-full flex-shrink-0 items-center justify-center rounded-2xl px-5 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-amber-400/30"
                 href="#cta"
-                >Выбрать</a
+                >Заказать сопровождение</a
               >
             </article>
           </div>
@@ -1010,7 +1015,7 @@
                     class="mt-1 h-4 w-4 rounded border-[var(--border)] text-amber-500 focus:ring-amber-400/40"
                   />
                   <label for="contact-consent" class="text-[11px] leading-relaxed text-[var(--text-muted)]">
-                    Согласен(а) на обработку переданных данных и обратную связь по указанным контактам.
+                    Согласен(а) на <a href="yuridicheskie/soglasie.html" target="_blank" rel="noopener noreferrer" class="text-[var(--accent)] underline hover:no-underline">обработку персональных данных</a> и обратную связь по указанным контактам.
                   </label>
                 </div>
 
@@ -1115,25 +1120,43 @@
               Email:
               <a
                 class="underline decoration-[var(--border)] underline-offset-4 hover:decoration-[var(--accent)] hover:text-[var(--accent)] transition"
-                href="mailto:mail@example.com"
+                href="mailto:andrey-ponizovv@yandex.ru"
                 target="_blank"
                 rel="nofollow noopener noreferrer"
-                >mail@example.com</a
+                >andrey-ponizovv@yandex.ru</a
               >
             </p>
           </div>
           <div class="text-xs text-[var(--text-muted)]">
             <p class="font-semibold text-[var(--text)]">Юридическое</p>
             <p class="mt-2">
-              <a class="underline decoration-[var(--border)] underline-offset-4 hover:decoration-[var(--accent)] hover:text-[var(--accent)] transition" href="privacy.html" target="_blank" rel="nofollow noopener noreferrer"
-                >Политика конфиденциальности (заглушка)</a
-              >
+              <a class="underline decoration-[var(--border)] underline-offset-4 hover:decoration-[var(--accent)] hover:text-[var(--accent)] transition" href="yuridicheskie/privacy-policy.html" target="_blank" rel="nofollow noopener noreferrer">Политика конфиденциальности</a>
+            </p>
+            <p class="mt-1">
+              <a class="underline decoration-[var(--border)] underline-offset-4 hover:decoration-[var(--accent)] hover:text-[var(--accent)] transition" href="yuridicheskie/soglasie.html" target="_blank" rel="nofollow noopener noreferrer">Согласие на обработку ПДн</a>
             </p>
             <p class="mt-1">© <span id="year"></span> Все права защищены</p>
           </div>
         </div>
       </div>
     </footer>
+
+    <!-- VK Community Messages widget -->
+    <div id="vk_community_messages"></div>
+
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function(m,e,t,r,i,k,a){
+            m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+            m[i].l=1*new Date();
+            for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+            k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+        })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=107711015', 'ym');
+
+        ym(107711015, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/107711015" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
 
     <!-- COOKIE BANNER -->
     <div
@@ -1145,8 +1168,7 @@
     >
       <div class="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-4 sm:flex-row sm:items-center sm:justify-between">
         <p class="text-xs leading-relaxed text-slate-300">
-          Мы используем cookie для работы сайта и базовой аналитики. Вы можете принять или продолжить пользоваться сайтом — это будет означать
-          согласие.
+          Мы используем cookie для работы сайта и базовой аналитики. Вы можете принять или закрыть. <a href="yuridicheskie/privacy-policy.html" class="text-[var(--accent)] underline hover:no-underline" target="_blank" rel="noopener noreferrer">Подробнее</a>
         </p>
         <div class="flex gap-2">
           <button
@@ -1418,6 +1440,25 @@
 
     <script>
       (function () {
+        // VK community messages widget init (community ID 225365151)
+        function initVkWidget() {
+          if (typeof VK === "undefined" || !VK.Widgets) {
+            setTimeout(initVkWidget, 200);
+            return;
+          }
+          setTimeout(function () {
+            try {
+              VK.Widgets.CommunityMessages("vk_community_messages", 225365151);
+            } catch (e) {
+              console.warn("VK widget init:", e);
+            }
+          }, 1500);
+        }
+        if (document.readyState === "complete") initVkWidget();
+        else window.addEventListener("load", initVkWidget);
+      })();
+
+      (function () {
         const year = document.getElementById("year");
         if (year) year.textContent = new Date().getFullYear();
 
@@ -1471,9 +1512,13 @@
         const statusEl = document.getElementById("contact-status");
 
         if (form && submitButton && statusEl) {
-          const API_URL = "/api/lead";
+          const TELEGRAM_USER = "ponizovandrey";
+          const MESSAGE_TEMPLATE =
+            "Имя: {name}\n" +
+            "Телефон / Telegram: {phone}\n\n" +
+            "Сообщение:\n{message}";
 
-          form.addEventListener("submit", async function (event) {
+          form.addEventListener("submit", function (event) {
             event.preventDefault();
 
             const name = form.elements["name"].value.trim();
@@ -1486,39 +1531,24 @@
               return;
             }
 
+            const text = MESSAGE_TEMPLATE
+              .replace("{name}", name)
+              .replace("{phone}", phone)
+              .replace("{message}", message);
+            const telegramUrl =
+              "https://t.me/" + TELEGRAM_USER + "?text=" + encodeURIComponent(text);
+
             submitButton.disabled = true;
-            submitButton.textContent = "Отправляем…";
-            statusEl.textContent = "";
+            statusEl.textContent = "Открываю Telegram…";
+            statusEl.className = "text-xs leading-relaxed text-[var(--text-muted)]";
 
-            try {
-              const response = await fetch(API_URL, {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                },
-                body: JSON.stringify({ name, phone, message }),
-              });
+            window.open(telegramUrl, "_blank", "noopener,noreferrer");
 
-              const data = await response.json().catch(function () {
-                return { success: false };
-              });
-
-              if (!response.ok || !data.success) {
-                throw new Error(data.error || "Ошибка " + response.status);
-              }
-
-              statusEl.textContent = "Заявка отправлена! Я свяжусь с вами в ближайшее время.";
-              statusEl.className = "text-xs leading-relaxed text-emerald-600";
-              form.reset();
-            } catch (error) {
-              console.error("Ошибка отправки заявки", error);
-              statusEl.textContent =
-                "Не получилось отправить заявку. Попробуйте ещё раз или напишите напрямую в Telegram.";
-              statusEl.className = "text-xs leading-relaxed text-red-600";
-            } finally {
-              submitButton.disabled = false;
-              submitButton.textContent = "Отправить заявку";
-            }
+            statusEl.textContent =
+              "Откроется Telegram с готовым сообщением — нажмите «Отправить». Я свяжусь с вами в ближайшее время.";
+            statusEl.className = "text-xs leading-relaxed text-emerald-600";
+            form.reset();
+            submitButton.disabled = false;
           });
         }
       })();
