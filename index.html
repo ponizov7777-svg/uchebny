@@ -1129,9 +1129,7 @@
       </div>
     </footer>
 
-    <!-- VK Community Messages widget (temporarily disabled)
     <div id="vk_community_messages"></div>
-    -->
 
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript">
@@ -1249,33 +1247,6 @@
         ]
       }
     </script>
-
-    <!-- Yandex.Metrika (placeholder ID) -->
-    <script>
-      (function (m, e, t, r, i, k, a) {
-        m[i] =
-          m[i] ||
-          function () {
-            (m[i].a = m[i].a || []).push(arguments);
-          };
-        m[i].l = 1 * new Date();
-        (k = e.createElement(t)),
-          (a = e.getElementsByTagName(t)[0]),
-          (k.async = 1),
-          (k.src = r),
-          a.parentNode.insertBefore(k, a);
-      })(window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
-
-      ym(12345678, "init", {
-        clickmap: true,
-        trackLinks: true,
-        accurateTrackBounce: true,
-        webvisor: true,
-      });
-    </script>
-    <noscript
-      ><div><img src="https://mc.yandex.ru/watch/12345678" style="position: absolute; left: -9999px" alt="Яндекс.Метрика" /></div
-    ></noscript>
 
     <script>
       (function () {
@@ -1521,6 +1492,41 @@
             submitButton.disabled = false;
           });
         }
+      })();
+    </script>
+
+    <script type="text/javascript">
+      (function () {
+        var METRIKA_ID = 107711015;
+
+        function initWidget() {
+          if (typeof VK === "undefined" || !VK.Widgets) {
+            setTimeout(initWidget, 200);
+            return;
+          }
+
+          VK.Widgets.CommunityMessages("vk_community_messages", 225365151, {
+            expanded: "0",
+            tooltipButtonText: "Написать в VK",
+          });
+
+          try {
+            if (typeof VK.Observer !== "undefined" && typeof window.ym === "function") {
+              VK.Observer.subscribe("widgets.communityMessages.opened", function () {
+                window.ym(METRIKA_ID, "reachGoal", "micro_vk_widget_open");
+              });
+
+              VK.Observer.subscribe("widgets.communityMessages.newItem", function () {
+                window.ym(METRIKA_ID, "reachGoal", "macro_vk_widget_message");
+              });
+            }
+          } catch (e) {
+            console.warn("VK widget observer error:", e);
+          }
+        }
+
+        if (document.readyState === "complete") initWidget();
+        else window.addEventListener("load", initWidget);
       })();
     </script>
   </body>
