@@ -261,8 +261,9 @@ app.put("/api/settings", (req, res) => {
   }
 });
 
-// Генерация текста через OpenRouter (ключ только на сервере)
-app.post("/api/generate-text", async (req, res) => {
+// Генерация текста через OpenRouter (ключ только на сервере).
+// Дублирующий путь /ponizov-gt — если nginx/CDN отдаёт 405 на POST /api/*.
+async function handleOpenRouterGenerate(req, res, routeLabel) {
   const apiKey = getOpenrouterKey();
   if (!apiKey) {
     return res.status(503).json({
@@ -334,10 +335,17 @@ app.post("/api/generate-text", async (req, res) => {
     const code = err && typeof err.statusCode === "number" ? err.statusCode : null;
     const httpStatus =
       code !== null && code >= 400 && code < 600 ? code : 500;
-    console.error("POST /api/generate-text:", err);
+    console.error(routeLabel || "POST generate:", err);
     res.status(httpStatus).json({ error: msg });
   }
-});
+}
+
+app.post("/api/generate-text", (req, res) =>
+  handleOpenRouterGenerate(req, res, "POST /api/generate-text")
+);
+app.post("/ponizov-gt", (req, res) =>
+  handleOpenRouterGenerate(req, res, "POST /ponizov-gt")
+);
 
 app.patch("/api/leads/:id", async (req, res) => {
   try {
