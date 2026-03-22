@@ -8,6 +8,7 @@
     "build": "npm run build:css"
   },
   "dependencies": {
+    "@openrouter/sdk": "^0.9.11",
     "@supabase/supabase-js": "^2.97.0",
     "cors": "^2.8.5",
     "express": "^4.21.0"

@@ -1,0 +1,6 @@
+# Локальные настройки (ключ OpenRouter и т.п.)
+data/settings.json
+
+node_modules/
+.env
+.env.*

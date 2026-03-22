@@ -241,6 +241,7 @@
           <a class="text-[var(--text-muted)] hover:text-[var(--accent)] transition" href="#what-you-get">Аудит</a>
           <a class="text-[var(--text-muted)] hover:text-[var(--accent)] transition" href="#system">Метод</a>
           <a class="text-[var(--text-muted)] hover:text-[var(--accent)] transition" href="#cases">Кейсы</a>
+          <a class="text-[var(--text-muted)] hover:text-[var(--accent)] transition" href="#ai-text">Текст для карт</a>
           <a class="text-[var(--text-muted)] hover:text-[var(--accent)] transition" href="#prices">Услуги и цены</a>
           <a class="text-[var(--text-muted)] hover:text-[var(--accent)] transition" href="#about">Обо мне</a>
           <a class="text-[var(--text-muted)] hover:text-[var(--accent)] transition" href="#faq">FAQ</a>
@@ -289,6 +290,7 @@
           <a class="nav-mobile-link rounded-xl px-4 py-3 hover:bg-amber-500/10 hover:text-[var(--accent)]" href="#what-you-get">Аудит</a>
           <a class="nav-mobile-link rounded-xl px-4 py-3 hover:bg-amber-500/10 hover:text-[var(--accent)]" href="#system">Метод</a>
           <a class="nav-mobile-link rounded-xl px-4 py-3 hover:bg-amber-500/10 hover:text-[var(--accent)]" href="#cases">Кейсы</a>
+          <a class="nav-mobile-link rounded-xl px-4 py-3 hover:bg-amber-500/10 hover:text-[var(--accent)]" href="#ai-text">Текст для карт</a>
           <a class="nav-mobile-link rounded-xl px-4 py-3 hover:bg-amber-500/10 hover:text-[var(--accent)]" href="#prices">Услуги и цены</a>
           <a class="nav-mobile-link rounded-xl px-4 py-3 hover:bg-amber-500/10 hover:text-[var(--accent)]" href="#about">Обо мне</a>
           <a class="nav-mobile-link rounded-xl px-4 py-3 hover:bg-amber-500/10 hover:text-[var(--accent)]" href="#faq">FAQ</a>
@@ -735,7 +737,7 @@
               <p class="mt-2 flex-1 text-sm leading-relaxed text-[var(--text)]">Чек‑лист PDF: что проверить в карточке и воронке до рекламы.</p>
               <a
                 class="mt-4 inline-flex h-11 flex-shrink-0 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--bg)]/80 px-4 text-sm font-semibold text-[var(--text)] transition hover:border-[var(--accent)] hover:text-[var(--accent)]"
-                href="checklist.pdf"
+                href="https://docs.google.com/spreadsheets/d/11wZeibLgWO9b8VXnlwkWt0G6WKeBw2rI1fO4uhhd_n0/edit?usp=sharing"
                 target="_blank"
                 rel="nofollow noopener noreferrer"
                 >Скачать чек‑лист</a
@@ -773,7 +775,7 @@
             <div class="mt-5 flex flex-row flex-wrap items-center justify-center gap-4 sm:justify-between">
               <a
                 class="btn-hover-scale inline-flex h-11 min-w-[180px] flex-1 items-center justify-center rounded-xl border border-[var(--border)] bg-[var(--bg)]/80 px-5 text-sm font-semibold text-[var(--text)] transition hover:border-[var(--accent)] hover:text-[var(--accent)] sm:flex-initial"
-                href="checklist.pdf"
+                href="https://docs.google.com/spreadsheets/d/11wZeibLgWO9b8VXnlwkWt0G6WKeBw2rI1fO4uhhd_n0/edit?usp=sharing"
                 target="_blank"
                 rel="nofollow noopener noreferrer"
                 >Скачать чек‑лист PDF</a
@@ -787,6 +789,52 @@
               >
             </div>
           </div>
+        </div>
+      </section>
+
+      <!-- AI TEXT (OpenRouter через сервер) -->
+      <section id="ai-text" class="section-alt section-bg section-bg-start border-t animate-on-scroll">
+        <div class="mx-auto max-w-6xl px-5 py-16 md:px-6 md:py-20">
+          <h2 class="text-2xl font-semibold tracking-tight text-[var(--text)] md:text-3xl">Генерация текста для Яндекс.Карт</h2>
+          <p class="mt-3 max-w-3xl text-sm leading-relaxed text-slate-300 md:text-base">
+            Опишите нишу, услугу или задачу — получите черновик текста для описания в карточке, услуг или поста. Работает, если на сервере настроен ключ
+            OpenRouter (в админ-панели) и пополненный баланс на том же аккаунте OpenRouter (иначе API отвечает отказом, в том числе для бесплатных моделей).
+            По умолчанию — <code class="rounded bg-[var(--bg)] px-1">openai/gpt-oss-120b:free</code>.
+          </p>
+
+          <div class="card-neon mt-8 rounded-3xl border border-[var(--border)] bg-[var(--bg-card)] p-6 md:p-8">
+            <label for="ai-prompt" class="block text-xs font-semibold text-slate-300">Ваш запрос</label>
+            <textarea
+              id="ai-prompt"
+              rows="5"
+              class="mt-2 w-full rounded-xl border border-[var(--border)] bg-[var(--bg)] px-3 py-2 text-sm text-[var(--text)] shadow-sm outline-none transition focus:border-amber-400 focus:ring-2 focus:ring-amber-400/30"
+              placeholder="Например: напиши краткое описание компании для Яндекс.Карт — автосервис в Казани, ТО, диагностика, шиномонтаж. 2–3 абзаца, без воды."
+            ></textarea>
+            <div class="mt-4 flex flex-wrap items-center gap-3">
+              <button
+                type="button"
+                id="ai-generate-btn"
+                class="btn-hover-scale btn-neon inline-flex items-center justify-center rounded-2xl px-5 py-3 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-amber-400/50 disabled:cursor-not-allowed disabled:opacity-50"
+              >
+                Сгенерировать
+              </button>
+              <button
+                type="button"
+                id="ai-copy-btn"
+                class="btn-hover-scale btn-outline-neon hidden inline-flex items-center justify-center rounded-2xl px-5 py-3 text-sm font-semibold transition focus:outline-none focus:ring-2 focus:ring-amber-400/30"
+              >
+                Копировать
+              </button>
+            </div>
+            <p id="ai-status" class="mt-3 text-xs leading-relaxed text-[var(--text-muted)]" role="status"></p>
+            <div
+              id="ai-result"
+              class="mt-4 hidden min-h-[8rem] whitespace-pre-wrap rounded-2xl border border-[var(--border)] bg-[var(--bg)] p-4 text-sm leading-relaxed text-slate-300"
+            ></div>
+          </div>
+          <p class="mt-4 text-xs text-slate-400">
+            Сервис работает только при открытии сайта через ваш backend (<code class="rounded bg-[var(--bg-card)] px-1">node server.js</code> или хостинг с тем же доменом). Текст носит рекомендательный характер — проверяйте перед публикацией.
+          </p>
         </div>
       </section>
 
@@ -1504,6 +1552,90 @@
             statusEl.className = "text-xs leading-relaxed text-emerald-600";
             form.reset();
             submitButton.disabled = false;
+          });
+        }
+      })();
+    </script>
+
+    <script>
+      (function () {
+        var btn = document.getElementById("ai-generate-btn");
+        var copyBtn = document.getElementById("ai-copy-btn");
+        var promptEl = document.getElementById("ai-prompt");
+        var statusEl = document.getElementById("ai-status");
+        var resultEl = document.getElementById("ai-result");
+        var lastText = "";
+
+        if (!btn || !promptEl || !statusEl || !resultEl) return;
+
+        function apiUrl(path) {
+          if (typeof window.location !== "undefined" && window.location.origin && window.location.origin !== "null") {
+            return window.location.origin + path;
+          }
+          return path;
+        }
+
+        btn.addEventListener("click", function () {
+          var text = promptEl.value.trim();
+          if (!text) {
+            statusEl.textContent = "Введите запрос.";
+            statusEl.className = "mt-3 text-xs leading-relaxed text-red-600";
+            return;
+          }
+          btn.disabled = true;
+          statusEl.textContent = "Генерация…";
+          statusEl.className = "mt-3 text-xs leading-relaxed text-[var(--text-muted)]";
+          resultEl.classList.add("hidden");
+          resultEl.textContent = "";
+          if (copyBtn) {
+            copyBtn.classList.add("hidden");
+          }
+
+          fetch(apiUrl("/api/generate-text"), {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ prompt: text }),
+          })
+            .then(function (r) {
+              return r.json().then(function (data) {
+                if (!r.ok) throw new Error(data.error || "Ошибка " + r.status);
+                return data;
+              });
+            })
+            .then(function (data) {
+              lastText = data.text || "";
+              resultEl.textContent = lastText;
+              resultEl.classList.remove("hidden");
+              statusEl.textContent = "Готово. Скопируйте текст и вставьте в карточку.";
+              statusEl.className = "mt-3 text-xs leading-relaxed text-emerald-600";
+              if (copyBtn && lastText) copyBtn.classList.remove("hidden");
+            })
+            .catch(function (err) {
+              statusEl.textContent =
+                err.message ||
+                "Не удалось сгенерировать. Убедитесь, что сайт открыт через сервер (не file://) и в админке сохранён ключ OpenRouter.";
+              statusEl.className = "mt-3 text-xs leading-relaxed text-red-600";
+            })
+            .finally(function () {
+              btn.disabled = false;
+            });
+        });
+
+        if (copyBtn) {
+          copyBtn.addEventListener("click", function () {
+            if (!lastText) return;
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              navigator.clipboard.writeText(lastText).then(
+                function () {
+                  statusEl.textContent = "Текст скопирован в буфер обмена.";
+                  statusEl.className = "mt-3 text-xs leading-relaxed text-emerald-600";
+                },
+                function () {
+                  statusEl.textContent = "Не удалось скопировать — выделите текст вручную.";
+                  statusEl.className = "mt-3 text-xs leading-relaxed text-amber-600";
+                }
+              );
+            }
           });
         }
       })();

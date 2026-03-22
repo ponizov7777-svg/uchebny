@@ -5,6 +5,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Админ-панель — заявки</title>
     <link rel="stylesheet" href="dist/output.css" />
+    <!-- Стили кнопок настроек: не зависят от Tailwind (админка раньше не входила в content) -->
+    <style>
+      #openrouter-save {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0.5rem;
+        border: 2px solid #b45309;
+        background: #f59e0b;
+        color: #111827;
+        padding: 0.625rem 1.25rem;
+        font-size: 0.875rem;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      }
+      #openrouter-save:hover {
+        background: #fbbf24;
+      }
+      #openrouter-save:focus-visible {
+        outline: 3px solid #d97706;
+        outline-offset: 2px;
+      }
+      #openrouter-clear {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0.5rem;
+        border: 2px solid #475569;
+        background: #ffffff;
+        color: #0f172a;
+        padding: 0.625rem 1.25rem;
+        font-size: 0.875rem;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+      }
+      #openrouter-clear:hover {
+        background: #f1f5f9;
+      }
+      #openrouter-clear:focus-visible {
+        outline: 3px solid #64748b;
+        outline-offset: 2px;
+      }
+    </style>
   </head>
   <body class="bg-white text-slate-900 antialiased font-sans text-[15px] leading-relaxed min-h-screen">
     <div class="mx-auto max-w-6xl px-4 py-8">
@@ -16,6 +61,39 @@
           >На лендинг</a
         >
       </header>
+
+      <section
+        class="mt-8 rounded-xl border border-slate-200 bg-slate-50 p-6"
+        aria-labelledby="settings-heading"
+      >
+        <h2 id="settings-heading" class="text-lg font-semibold text-slate-900">Настройки</h2>
+        <p class="mt-1 text-sm text-slate-600">
+          Ключ <a href="https://openrouter.ai/" target="_blank" rel="noopener noreferrer" class="text-slate-900 underline">OpenRouter</a> используется
+          только на сервере для блока «Генерация текста» на сайте. В браузер посетителей ключ не передаётся.
+        </p>
+        <div class="mt-4 max-w-xl space-y-3">
+          <div>
+            <label for="openrouter-key" class="block text-xs font-medium text-slate-700">API-ключ (sk-or-…)</label>
+            <input
+              id="openrouter-key"
+              type="password"
+              autocomplete="off"
+              class="mt-1 w-full rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm"
+              placeholder="Вставьте новый ключ"
+            />
+          </div>
+          <p id="settings-openrouter-status" class="text-xs text-slate-500">Загрузка статуса…</p>
+          <p id="settings-openrouter-model" class="hidden text-xs text-slate-400"></p>
+          <div class="flex flex-wrap gap-3">
+            <button type="button" id="openrouter-save">Сохранить ключ</button>
+            <button type="button" id="openrouter-clear">Удалить ключ из файла</button>
+          </div>
+          <p class="text-xs text-slate-400">
+            На продакшене можно задать переменную окружения <code class="rounded bg-slate-200 px-1">OPENROUTER_API_KEY</code> — она имеет приоритет над
+            ключом из файла.
+          </p>
+        </div>
+      </section>
 
       <div class="mt-6 flex flex-wrap gap-2">
         <button
@@ -200,6 +278,81 @@
           setFilter(btn.getAttribute("data-filter"));
         });
       });
+
+      function loadOpenrouterSettings() {
+        var statusEl = document.getElementById("settings-openrouter-status");
+        var modelEl = document.getElementById("settings-openrouter-model");
+        fetch(API_BASE + "/api/settings")
+          .then(function (r) {
+            return r.json().then(function (data) {
+              if (!r.ok) throw new Error(data.error || r.status);
+              if (data.openrouterConfigured) {
+                statusEl.textContent =
+                  "Ключ настроен" + (data.openrouterKeyHint ? " (" + data.openrouterKeyHint + ")" : "") + ".";
+                statusEl.className = "text-xs text-emerald-700";
+              } else {
+                statusEl.textContent =
+                  "Ключ не задан — блок генерации на сайте вернёт ошибку, пока не сохраните ключ или OPENROUTER_API_KEY на сервере.";
+                statusEl.className = "text-xs text-amber-700";
+              }
+              if (data.openrouterModel && modelEl) {
+                modelEl.textContent = "Модель по умолчанию: " + data.openrouterModel;
+                modelEl.classList.remove("hidden");
+              }
+            });
+          })
+          .catch(function () {
+            statusEl.textContent = "Не удалось загрузить настройки (сервер не запущен?).";
+            statusEl.className = "text-xs text-red-600";
+          });
+      }
+
+      document.getElementById("openrouter-save").addEventListener("click", function () {
+        var input = document.getElementById("openrouter-key");
+        var key = input.value.trim();
+        if (!key) {
+          alert("Введите ключ или нажмите «Удалить ключ из файла».");
+          return;
+        }
+        fetch(API_BASE + "/api/settings", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ openrouterApiKey: key }),
+        })
+          .then(function (r) {
+            return r.json().then(function (data) {
+              if (!r.ok) throw new Error(data.error || r.status);
+              input.value = "";
+              alert("Ключ сохранён.");
+              loadOpenrouterSettings();
+            });
+          })
+          .catch(function (e) {
+            alert("Ошибка: " + (e.message || "не удалось сохранить"));
+          });
+      });
+
+      document.getElementById("openrouter-clear").addEventListener("click", function () {
+        if (!confirm("Удалить ключ OpenRouter из файла настроек на сервере?")) return;
+        fetch(API_BASE + "/api/settings", {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ openrouterApiKey: "" }),
+        })
+          .then(function (r) {
+            return r.json().then(function (data) {
+              if (!r.ok) throw new Error(data.error || r.status);
+              document.getElementById("openrouter-key").value = "";
+              alert(data.message || "Готово.");
+              loadOpenrouterSettings();
+            });
+          })
+          .catch(function (e) {
+            alert("Ошибка: " + (e.message || "не удалось удалить"));
+          });
+      });
+
+      loadOpenrouterSettings();
 
       fetch(API_BASE + "/api/leads")
         .then(function (r) {
